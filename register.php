@@ -1,4 +1,5 @@
 <?php
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -13,12 +14,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 }
 
 //include config ตรงนี้นะจ๊ะ 
-const DB_HOST = 'localhost';
-const DB_NAME = 's67160378';
-const DB_USER = 's67160378';
-const DB_PASS = 'jR8jfbgB';
-const DB_CHARSET = 'utf8mb4';
-
+require __DIR__ . '/config_mysqli.php';
+require __DIR__ . '/csrf.php';
 // สร้าง CSRF token ครั้งแรก
 if (empty($_SESSION['csrf_token'])) {
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -28,8 +25,8 @@ $errors = [];
 $success = "";
 
 // เชื่อมต่อฐานข้อมูล (MySQLi)
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-$mysqli->set_charset(DB_CHARSET);
+$mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+$mysqli->set_charset($DB_CHARSET);
 if ($mysqli->connect_errno) {
   die("เชื่อมต่อฐานข้อมูลล้มเหลว: " . $mysqli->connect_error);
 }
