@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/config_mysqli.php';
+require __DIR__ . '/csrf.php';
 if (empty($_SESSION['user_id'])) {
   header('Location: login.php');
   exit;
@@ -13,10 +13,7 @@ error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 // DB
-$DB_HOST = 'localhost';
-$DB_USER = 's67160378';
-$DB_PASS = 'jR8jfbgB';
-$DB_NAME = 's67160378';
+require __DIR__ . '/config_mysqli.php';
 
 $mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 if ($mysqli->connect_errno) {
